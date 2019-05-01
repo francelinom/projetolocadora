@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Locadora TADS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <h:form>
+            #{cadFilme.adicionaLista()}
+            
+            <h:messages style="color:red"/>
+
+            <p:panelGrid columns="2">
+                <h:outputLabel value="Titulo"></h:outputLabel>
+                <p:inputText value="#{cadFilme.titulo}" required="true" requiredMessage="Titulo Não pode Ficar em Branco"></p:inputText>
+
+                <h:outputLabel value="Data de Lançamento"></h:outputLabel>
+                <p:inputMask mask="99/99/9999" id="fData" value="#{cadFilme.dataLancamento}" required="true" requiredMessage="Preencher Data de Lançamento">
+                    <f:convertDateTime pattern="dd/MM/yyyy" for="fData" />
+                </p:inputMask>
+
+
+                <h:outputLabel value="Nota"></h:outputLabel>
+                <p:inputText id="fNota" value="#{cadFilme.nota}" required="true" requiredMessage="Digite uma nota entre 1 e 5">
+                    <f:convertNumber type="number"></f:convertNumber>
+                    <f:validateDoubleRange maximum="5" minimum="1"></f:validateDoubleRange>
+                </p:inputText>
+
+                <h:outputLabel value="Descrição"></h:outputLabel>
+                <p:inputText value="#{cadFilme.descricao}" required="true" requiredMessage="Defina uma descrição para o filme">
+                    <f:validateLength maximum="200" minimum="10"></f:validateLength>
+                </p:inputText>
+
+                <h:outputLabel value="Quantidade"></h:outputLabel>
+                <p:inputText value="#{cadFilme.quantidade}">
+                    <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+                    <f:convertNumber type="number"></f:convertNumber>                    
+                </p:inputText>
+                <!--
+                <h:outputLabel value="Valor Unitário R$"></h:outputLabel>
+                <p:inputText value="">
+                    <f:convertNumber type="number"></f:convertNumber>
+                </p:inputText> -->
+
+            </p:panelGrid>
+
+            <p:commandButton value="Cadastrar" action="#{cadFilme.adicionar()}" update="@form"></p:commandButton>
+            <p:commandButton value="Cancelar" action="#{cadFilme.cancelar()}" update="@form"></p:commandButton>
+            
+                
+            <p:dataTable value="#{cadFilme.filme}" var="filme">
+                <p:column headerText="Titulo">
+                    <h:outputText value="#{filme.titulo}"></h:outputText>
+                </p:column>
+                <p:column headerText="Data de Lançamento">
+                    <h:outputText value="#{filme.dataLancamento}"></h:outputText>
+                </p:column>
+                <p:column headerText="Nota">
+                    <h:outputText value="#{filme.nota}"></h:outputText>
+                </p:column>
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{filme.descricao}"></h:outputText>
+                </p:column>
+                <p:column headerText="Quantidade">
+                    <h:outputText value="#{filme.quantidade}"></h:outputText>
+                </p:column>
+                <!--
+                <p:column headerText="Valor Unitario">
+                    <h:outputText value=""></h:outputText>
+                </p:column> 
+                -->
+
+            </p:dataTable>
+                
+
+        </h:form>
+    </body>
+</html>
+
