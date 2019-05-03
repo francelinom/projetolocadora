@@ -1,8 +1,9 @@
-
 package Controle;
 
 import Modelo.CadastraFilme;
 import Persistencia.CadastraFilmeDAO;
+import Persistencia.Conexao;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,95 +14,34 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean(name = "cadFilme")
 @ViewScoped
-public class CadastraFilmeBean {
-   private String titulo;
-    private Date dataLancamento;
-    private Integer nota;
-    private String descricao;
-    private Integer quantidade;
-    private CadastraFilme filme;
-    private List<CadastraFilme> filmes = new ArrayList<>();
+public class CadastraFilmeBean implements Serializable{
 
-    CadastraFilmeDAO cadastraFilmeDao = new CadastraFilmeDAO();
-    //private Date dataLancamento;
-    //private String dataL;
+    private CadastraFilme filme = new CadastraFilme();
+    private List<CadastraFilme> filmes = new ArrayList<CadastraFilme>();
+    Conexao conexao = new Conexao();
+    CadastraFilmeDAO filmesDao = new CadastraFilmeDAO();
 
-    public void adicionar() throws ParseException, SQLException {
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public CadastraFilmeBean() {
+        filme = new CadastraFilme();
 
-        //dataL = dateFormat.format(dataLancamento);
-        //dataLancamento = dateFormat.parse(dataL);
-       
-
-        filme = new CadastraFilme(titulo, dataLancamento, nota, descricao, quantidade, 4);
-        cadastraFilmeDao.insertLocadora(filme);
-
-        filmes.add(filme);
-        //filme = new CadastraFilme();
-    }
-    
-    public void adicionaLista(){
-        filmes.clear();
-        filmes.addAll(cadastraFilmeDao.listFilme());
-    }
-   
-    /*public void remover(CadastraFilme f){
-        if(filmes.contains(f)){
-            filmes.remove(f);
-                 
-        }
-    }
-    public void editar(CadastraFilme f){
-        this.filme = f;
-    }
-    public void salvar(){
-        if(!filmes.contains(filme)){
-            filmes.add(filme);
-            filme = new CadastraFilme();
-        }
-    }*/
-    public String getTitulo() {
-        return titulo;
+        filmes = filmesDao.listFilme();
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void addFilme() {
+        
+        filmesDao.insertLocadora(filme);
+        filmes = filmesDao.listFilme();
+        filme = new CadastraFilme();
+
     }
 
-    public Date getDataLancamento() {
-        return dataLancamento;
-    }
+    public void getLIST() {
+//        filme.setTitulo("");
+//        filme.setData(null);
+//        filme.setNota(0);
+//        filme.setDescricao("");
+//        filme.setQuantidade(0);
 
-    public void setDataLancamento(Date dataLancamento) {
-        this.dataLancamento = dataLancamento;
-    }
-
-    public Integer getNota() {
-        return nota;
-    }
-
-    public void setNota(Integer nota) {
-        this.nota = nota;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public String cancelar() {
-        return "cancelar";
     }
 
     public CadastraFilme getFilme() {
@@ -112,6 +52,9 @@ public class CadastraFilmeBean {
         this.filme = filme;
     }
 
+    public List<CadastraFilme> getFilmes() {
+        return filmes;
+    }
 
     public void setFilmes(List<CadastraFilme> filmes) {
         this.filmes = filmes;

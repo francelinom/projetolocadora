@@ -1,39 +1,37 @@
-
 package Persistencia;
 
 import Modelo.CadastraFilme;
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+public class CadastraFilmeDAO implements Serializable{
 
-public class CadastraFilmeDAO {
     private final Conexao conexao = new Conexao();
     private final String LOCADORA = "SELECT * FROM LOCADORA";
-    private final String INSERTLOCADORA = "INSERT INTO LOCADORA(TITULO,DATALANCAMENTO,NOTA,DESCRICAO,QUANTIDADE, VALOR) VALUES(?,?,?,?,?,?)";
+    private final String INSERTLOCADORA = "INSERT INTO LOCADORA(TITULO,DATALANCAMENTO,NOTA,DESCRICAO,QUANTIDADE) VALUES(?,?,?,?,?)";
 
-public boolean insertLocadora(CadastraFilme f) {
+    private final String UPDATEQUANTIDADE = "UPDATE LOCADORA SET QUANTIDADE = ? WHERE ID = ?";
+
+    public boolean insertLocadora(CadastraFilme u) {
         //convertendo em java.util.Date em java.sql.Date
-        java.util.Date dataUtil = f.getDataLancamento();  
-        dataUtil= new java.util.Date();
-        java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+
         try {
             conexao.Conectar();
-            PreparedStatement prepararInstrucao;
-            prepararInstrucao = conexao.getConexao().prepareStatement(INSERTLOCADORA);
-
-            prepararInstrucao.setString(1, f.getTitulo().toUpperCase());
-            //prepararInstrucao.setDate(2, (Date) f.getDataLancamento());
-            prepararInstrucao.setDate(2, dataSql);
-            prepararInstrucao.setInt(3, f.getNota());
-            prepararInstrucao.setString(4, f.getDescricao());
-            prepararInstrucao.setInt(5, f.getQuantidade());
-            prepararInstrucao.setFloat(6, 4);
+            PreparedStatement preparaInstrucao;
+            preparaInstrucao = conexao.getConexao().prepareStatement(INSERTLOCADORA);
+            preparaInstrucao.setString(1, u.getTitulo());
+            u.setDataLancamento(new java.util.Date());
+            java.sql.Date dataSql = new java.sql.Date(u.getDataLancamento().getTime());
+            preparaInstrucao.setDate(2, dataSql);
+            preparaInstrucao.setInt(3, u.getNota());
+            preparaInstrucao.setString(4, u.getDescricao());
+            preparaInstrucao.setInt(5, u.getQuantidade());
             
-
-            prepararInstrucao.execute();
-
+            preparaInstrucao.executeUpdate();
+            System.out.println("OOOOOOK"+u.toString());
             conexao.desconectar();
 
             return true;
@@ -53,7 +51,7 @@ public boolean insertLocadora(CadastraFilme f) {
             ResultSet rs = prepararInstrucao.executeQuery();
 
             while (rs.next()) {
-                CadastraFilme x = new CadastraFilme(rs.getString("titulo"), rs.getDate("datalancamento"), rs.getInt("nota"), rs.getString("descricao"), rs.getInt("quantidade"), rs.getFloat("valor"));
+                CadastraFilme x = new CadastraFilme(rs.getString("titulo"), rs.getDate("datalancamento"), rs.getInt("nota"), rs.getString("descricao"), rs.getInt("quantidade"));
                 System.out.println(x);
                 cadFilme.add(x);
             }
@@ -62,6 +60,24 @@ public boolean insertLocadora(CadastraFilme f) {
             System.out.println(e.getMessage());
         }
         return cadFilme;
+    }
+
+    public boolean updateQuantidade(int u, int id) {
+        try {
+            conexao.Conectar();
+            PreparedStatement prepararInstrucao;
+            prepararInstrucao = conexao.getConexao().prepareStatement(UPDATEQUANTIDADE);
+            prepararInstrucao.setInt(1, u);
+            prepararInstrucao.setInt(2, id);
+
+            prepararInstrucao.execute();
+
+            conexao.desconectar();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 }

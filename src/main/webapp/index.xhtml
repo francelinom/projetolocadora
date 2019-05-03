@@ -10,49 +10,45 @@
     </h:head>
     <body>
         <h:form>
-            #{cadFilme.adicionaLista()}
-            
+       
             <h:messages style="color:red"/>
 
             <p:panelGrid columns="2">
                 <h:outputLabel value="Titulo"></h:outputLabel>
-                <p:inputText value="#{cadFilme.titulo}" required="true" requiredMessage="Titulo Não pode Ficar em Branco"></p:inputText>
+                <p:inputText value="#{cadFilme.filme.titulo}" required="true" requiredMessage="Titulo Não pode Ficar em Branco"></p:inputText>
 
                 <h:outputLabel value="Data de Lançamento"></h:outputLabel>
-                <p:inputMask mask="99/99/9999" id="fData" value="#{cadFilme.dataLancamento}" required="true" requiredMessage="Preencher Data de Lançamento">
+                <p:inputMask mask="99/99/9999" id="fData" value="#{cadFilme.filme.dataLancamento}" required="true" requiredMessage="Preencher Data de Lançamento">
                     <f:convertDateTime pattern="dd/MM/yyyy" for="fData" />
                 </p:inputMask>
 
 
                 <h:outputLabel value="Nota"></h:outputLabel>
-                <p:inputText id="fNota" value="#{cadFilme.nota}" required="true" requiredMessage="Digite uma nota entre 1 e 5">
+                <p:inputText id="fNota" value="#{cadFilme.filme.nota}" required="true" requiredMessage="Digite uma nota entre 1 e 5">
                     <f:convertNumber type="number"></f:convertNumber>
                     <f:validateDoubleRange maximum="5" minimum="1"></f:validateDoubleRange>
                 </p:inputText>
 
                 <h:outputLabel value="Descrição"></h:outputLabel>
-                <p:inputText value="#{cadFilme.descricao}" required="true" requiredMessage="Defina uma descrição para o filme">
+                <p:inputText value="#{cadFilme.filme.descricao}" required="true" requiredMessage="Defina uma descrição para o filme">
                     <f:validateLength maximum="200" minimum="10"></f:validateLength>
                 </p:inputText>
 
                 <h:outputLabel value="Quantidade"></h:outputLabel>
-                <p:inputText value="#{cadFilme.quantidade}">
+                <p:inputText value="#{cadFilme.filme.quantidade}">
                     <f:validateDoubleRange minimum="1"></f:validateDoubleRange>
                     <f:convertNumber type="number"></f:convertNumber>                    
                 </p:inputText>
-                <!--
-                <h:outputLabel value="Valor Unitário R$"></h:outputLabel>
-                <p:inputText value="">
-                    <f:convertNumber type="number"></f:convertNumber>
-                </p:inputText> -->
+                
 
             </p:panelGrid>
 
-            <p:commandButton value="Cadastrar" action="#{cadFilme.adicionar()}" update="@form"></p:commandButton>
+            <p:commandButton value="Cadastrar" action="#{cadFilme.addFilme()}" ></p:commandButton>
             <p:commandButton value="Cancelar" action="#{cadFilme.cancelar()}" update="@form"></p:commandButton>
-            
+            <p:commandButton action="listaFilme.xhtml"  value="Escolher Filmes" immediate="true"></p:commandButton>
+            <p:commandButton  action="cesta.xhtml" value="Minha Cesta" immediate="true" ></p:commandButton>
                 
-            <p:dataTable value="#{cadFilme.filme}" var="filme">
+            <p:dataTable value="#{cadFilme.filmes}" var="filme">
                 <p:column headerText="Titulo">
                     <h:outputText value="#{filme.titulo}"></h:outputText>
                 </p:column>
@@ -68,15 +64,10 @@
                 <p:column headerText="Quantidade">
                     <h:outputText value="#{filme.quantidade}"></h:outputText>
                 </p:column>
-                <!--
-                <p:column headerText="Valor Unitario">
-                    <h:outputText value=""></h:outputText>
-                </p:column> 
-                -->
+                          
 
             </p:dataTable>
-                
-
+                         
         </h:form>
     </body>
 </html>
