@@ -12,7 +12,7 @@
 
         <h:form>
             <h1>ESCOLHA SEU FILME E LEVE COM VOCÊ UM MAR DE EMOÇÕES</h1>
-            <p:dataTable value="#{cadFilme.filmes}" var="filme">
+            <p:dataTable value="#{cadFilme.filmesList()}" var="filme">
                 <p:column headerText="Título" sortBy="">
                     <f:facet name="heade">Titulo</f:facet>
                     <p:outputLabel value="#{filme.titulo}"></p:outputLabel>
@@ -40,12 +40,13 @@
 
 
                 <p:column>
-                    <h:commandButton action="#{cesta.adicionarFilme(filme)}" value="Adicionar na cesta" disabled="#{filme.quantidade ==0}"/>
+                    <h:commandButton action="#{cesta.adicionarCesta(filme)}" value="Adicionar na cesta" disabled="#{filme.quantidade ==0}"/>
                 </p:column>
 
             </p:dataTable>
             <p:column>
                 <p:commandButton value="Voltar" action="index.xhtml"></p:commandButton>
+                <p:commandButton  action="cesta.xhtml" value="Minha Cesta" immediate="true" ></p:commandButton>
             </p:column>
 
 

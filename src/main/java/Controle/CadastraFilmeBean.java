@@ -26,6 +26,10 @@ public class CadastraFilmeBean implements Serializable{
 
         filmes = filmesDao.listFilme();
     }
+    public List<CadastraFilme> filmesList(){
+        filmes = filmesDao.listFilme();
+        return filmes;
+    }
 
     public void addFilme() {
         

@@ -11,7 +11,7 @@
     <body>
         <h1>Minha Cesta</h1>
         <h:form>
-            <p:dataTable value="#{cesta.filmes}" var="filme">
+            <p:dataTable value="#{cesta.cesta}" var="filme">
                 <p:column headerText="Título" sortBy="">
                     <f:facet name="heade">Titulo</f:facet>
                     <p:outputLabel value="#{filme.titulo}"></p:outputLabel>
@@ -30,11 +30,6 @@
                 <p:column headerText="Descrição" sortBy="">
                     <f:facet name="heade">Descricao</f:facet>
                     <p:outputLabel value="#{filme.descricao}"></p:outputLabel>
-                </p:column>
-
-                <p:column headerText="Quantidade" sortBy="">
-                    <f:facet name="heade">Quantidade</f:facet>
-                    <p:outputLabel value="#{filme.quantidade}"></p:outputLabel>
                 </p:column>
 
                 <p:column>

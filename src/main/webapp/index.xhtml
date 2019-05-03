@@ -48,7 +48,7 @@
             <p:commandButton action="listaFilme.xhtml"  value="Escolher Filmes" immediate="true"></p:commandButton>
             <p:commandButton  action="cesta.xhtml" value="Minha Cesta" immediate="true" ></p:commandButton>
                 
-            <p:dataTable value="#{cadFilme.filmes}" var="filme">
+            <p:dataTable value="#{cadFilme.filmesList()}" var="filme">
                 <p:column headerText="Titulo">
                     <h:outputText value="#{filme.titulo}"></h:outputText>
                 </p:column>

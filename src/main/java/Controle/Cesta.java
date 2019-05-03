@@ -30,33 +30,26 @@ public class Cesta {
     CadastraFilmeDAO filmeDao = new CadastraFilmeDAO();
     CadastraFilme cadFilme;
 
-
-    public void adicionarFilme(CadastraFilme c) {
-        qtdCesta++;
-        qtd--;
-        filmeDao.updateQuantidade(c.getQuantidade() - 1, c.getId());
-        c.setQuantidade(c.getQuantidade() - 1);
-        cesta.add(c);
+    public void adicionarCesta(CadastraFilme f) {
+        filmeDao.alterarQ(f);
+        cesta.add(f);
     }
 
     public void removerFilme(CadastraFilme c) {
+        if (cesta.contains(c)) {
+            cesta.remove(c);
+        }
 
-        qtdCesta--;
-
-        filmeDao.updateQuantidade(c.getQuantidade() + 1, c.getId());
-        c.setQuantidade(c.getQuantidade() + 1);
-        cesta.remove(c);
+        filmeDao.devolverQ(c);
     }
 
     public void limpar() {
 
         for (int i = 0; i < cesta.size(); i++) {
-
-            filmeDao.updateQuantidade(cesta.get(i).getQuantidade() + 1, cesta.get(i).getId());
-
+            filmeDao.devolverQ(cesta.get(i));
             cesta.remove(cadFilme);
-
         }
+
         qtdCesta = 0;
         cesta = new ArrayList<>();
         valor = 0;
