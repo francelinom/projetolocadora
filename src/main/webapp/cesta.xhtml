@@ -38,7 +38,8 @@
 
             </p:dataTable>
             <p:commandButton value="Voltar" action="index.xhtml"></p:commandButton>
-            <p:commandButton value="Finalizar" action="#{cesta.finalizarCompra()}"></p:commandButton>
+            <p:commandButton value="Limpar cesta" action="#{cesta.limpar()}" immediate="true"></p:commandButton>
+            <p:commandButton value="Finalizar" action="#{cesta.finalizarCompra()}" update="@form"></p:commandButton>
             <p:outputLabel value="#{cesta.valor}"></p:outputLabel>
         </h:form>
     </body>

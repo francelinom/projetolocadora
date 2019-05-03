@@ -6,16 +6,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexao {
-//    private static final String DRIVER = "org.postgresql.Driver";
-//    private static final String URL = "jdbc:postgresql://ec2-23-23-92-204.compute-1.amazonaws.com:5432/dcahohqv0mno0n?&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-//    private static final String USUARIO = "xriwyanciecuso";
-//    private static final String SENHA = "301935de970d5291dfcfc7ebe17aab39a39bf14eb986f99d058f4ffe82111607";
-//    private Connection conexao;
     private static final String DRIVER = "org.postgresql.Driver";
-    private static final String URL = "jdbc:postgresql://localhost:5432/locadoraTeste";
-    private static final String USUARIO = "postgres";
-    private static final String SENHA = "brasil123";
+    private static final String URL = "jdbc:postgresql://ec2-23-23-92-204.compute-1.amazonaws.com:5432/dcahohqv0mno0n?&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+    private static final String USUARIO = "xriwyanciecuso";
+    private static final String SENHA = "301935de970d5291dfcfc7ebe17aab39a39bf14eb986f99d058f4ffe82111607";
     private Connection conexao;
+    
+//    private static final String DRIVER = "org.postgresql.Driver";
+//    private static final String URL = "jdbc:postgresql://localhost:5432/locadoraTeste";
+//    private static final String USUARIO = "postgres";
+//    private static final String SENHA = "brasil123";
+//    private Connection conexao;
     
     public void Conectar(){
         try{

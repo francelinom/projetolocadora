@@ -43,8 +43,8 @@
 
             </p:panelGrid>
 
-            <p:commandButton value="Cadastrar" action="#{cadFilme.addFilme()}" ></p:commandButton>
-            <p:commandButton value="Cancelar" action="#{cadFilme.cancelar()}" update="@form"></p:commandButton>
+            <p:commandButton value="Cadastrar" action="#{cadFilme.addFilme()}" update="@form"></p:commandButton>
+            <p:commandButton value="Cancelar" action="cancelar" update="@form" immediate="true"></p:commandButton>
             <p:commandButton action="listaFilme.xhtml"  value="Escolher Filmes" immediate="true"></p:commandButton>
             <p:commandButton  action="cesta.xhtml" value="Minha Cesta" immediate="true" ></p:commandButton>
                 

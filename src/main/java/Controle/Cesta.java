@@ -56,7 +56,7 @@ public class Cesta {
     }
 
     public void finalizarCompra() {
-
+        
         valor = qtdCesta * 2;
     }
 
