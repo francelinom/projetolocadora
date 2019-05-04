@@ -55,9 +55,17 @@ public class Cesta {
         valor = 0;
     }
 
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
+
     public void finalizarCompra() {
-        
-        valor = qtdCesta * 2;
+        valor = cesta.size()*2;
+        //valor = qtdCesta * 2;
     }
 
     public float getValor() {
